@@ -62,10 +62,10 @@ const CustomAxisTick = ({ x, y, payload }: any) => {
   const data = monthlyData.find(d => d.name === payload.value);
   return (
     <g transform={`translate(${x},${y})`}>
-      <text x={0} y={0} dy={10} textAnchor="middle" fill="#666666" fontSize={11} fontFamily="var(--font-mono)" letterSpacing="0.05em">
+      <text x={0} y={0} dy={10} textAnchor="middle" fill="#666666" fontSize={11} fontFamily="var(--font-sans)" letterSpacing="0.05em">
         {payload.value}
       </text>
-      <text x={0} y={0} dy={22} textAnchor="middle" fill="#444444" fontSize={9} fontFamily="var(--font-mono)">
+      <text x={0} y={0} dy={22} textAnchor="middle" fill="#444444" fontSize={9} fontFamily="var(--font-sans)">
         [ {data?.xAxisPeriod} ]
       </text>
     </g>
@@ -76,14 +76,14 @@ const CustomTooltip = ({ active, payload }: any) => {
   if (active && payload && payload.length) {
     const data = payload[0].payload;
     return (
-      <div className="bg-[#F4F4F0] border-[2px] border-[#050505] p-4 font-mono shadow-[4px_4px_0px_#050505]">
-        <p className="text-[12px] font-bold text-[#050505] mb-3 border-b-[2px] border-[#050505] pb-2 uppercase">
+      <div className="bg-[#111111] border border-[#333333] p-4 font-sans shadow-[4px_4px_0px_#FFFFFF]">
+        <p className="text-[12px] font-bold text-[#FFFFFF] mb-3 border-b border-[#333333] pb-2 uppercase">
           [ DATA: {data.period} ]
         </p>
         {payload.map((entry: any, index: number) => (
           <div key={index} className="flex items-center justify-between gap-6 mb-2">
-            <span className="text-[12px] text-[#444] uppercase font-bold">{entry.name}</span>
-            <span className={cn("text-[14px] font-bold", entry.name === 'ROAS' ? "text-[#34A853]" : "text-[#050505]")}>
+            <span className="text-[12px] text-gray-400 uppercase font-bold">{entry.name}</span>
+            <span className={cn("text-[14px] font-bold", entry.name === 'ROAS' ? "text-[#E31212]" : "text-[#FFFFFF]")}>
                {entry.name === 'ROAS' 
                  ? `${entry.value.toLocaleString('pt-BR', { minimumFractionDigits: 2, maximumFractionDigits: 2 })}X` 
                  : `R$ ${entry.value.toLocaleString('pt-BR', { minimumFractionDigits: 2, maximumFractionDigits: 2 })}`}
@@ -115,25 +115,25 @@ const SwissCard = ({
 }) => {
   return (
     <div className={cn(
-      "relative border-[2px] border-[#050505] bg-[#F4F4F0] p-6 md:p-8 flex flex-col justify-between transition-transform duration-300 hover:-translate-y-1 hover:shadow-[6px_6px_0px_#050505]",
+      "relative border border-[#333333] bg-[#111111] p-6 md:p-8 flex flex-col justify-between transition-transform duration-300 hover:-translate-y-1 hover:shadow-[6px_6px_0px_#FFFFFF]",
       className
     )}>
       <div className="flex justify-between items-start mb-8 z-10">
-        <div className="text-[13px] font-bold tracking-[0.05em] text-[#050505] uppercase font-mono">
+        <div className="text-[13px] font-bold tracking-[0.05em] text-[#FFFFFF] uppercase font-sans">
            {title}
         </div>
-        {Icon && <Icon size={24} weight="bold" className={cn(isCritical ? "text-[#34A853]" : "text-[#050505]")} />}
+        {Icon && <Icon size={24} weight="bold" className={cn(isCritical ? "text-[#E31212]" : "text-[#FFFFFF]")} />}
       </div>
       
       <div className={cn(
-        "font-sans font-black tracking-tight z-10",
-        isCritical ? "text-[#34A853] text-5xl md:text-7xl" : "text-[#050505] text-4xl md:text-5xl"
+        "font-display font-black tracking-tight z-10",
+        isCritical ? "text-[#E31212] text-5xl md:text-7xl" : "text-[#FFFFFF] text-4xl md:text-5xl"
       )}>
         {value}
       </div>
 
       {subtext && (
-        <div className="mt-6 text-[14px] text-[#444] font-bold uppercase tracking-wider z-10 font-mono">
+        <div className="mt-6 text-[14px] text-gray-400 font-bold uppercase tracking-wider z-10 font-sans">
           {subtext}
         </div>
       )}
@@ -191,36 +191,36 @@ function App() {
   }, []);
 
   return (
-    <main ref={containerRef} className="w-full min-h-screen bg-[#F4F4F0] text-[#050505] selection:bg-[#34A853] selection:text-[#F4F4F0] overflow-x-hidden">
+    <main ref={containerRef} className="w-full min-h-screen bg-[#111111] text-[#FFFFFF] selection:bg-[#E31212] selection:text-[#111111] overflow-x-hidden">
       <div className="noise-bg mix-blend-multiply" />
       
       {/* Swiss Nav */}
-      <nav className="w-full flex justify-between items-center p-6 border-b-[2px] border-[#050505] font-mono text-[13px] font-bold tracking-widest text-[#050505] uppercase relative z-10 bg-[#F4F4F0]">
+      <nav className="w-full flex justify-between items-center p-6 border-b border-[#333333] font-sans text-[13px] font-bold tracking-widest text-[#FFFFFF] uppercase relative z-10 bg-[#111111]">
         <div className="flex gap-6">
           <span>V4 COMPANY</span>
         </div>
         <div className="flex gap-6">
           <span>STATUS: ATIVO</span>
-          <span className="text-[#34A853] animate-pulse">REC</span>
+          <span className="text-[#E31212] animate-pulse">REC</span>
         </div>
       </nav>
 
       {/* AIDA: Attention (Hero) */}
-      <section className="min-h-[70vh] flex flex-col justify-center items-center text-center py-24 md:py-32 border-b-[2px] border-[#050505] relative z-10 bg-[#F4F4F0]">
-        <h1 className="font-sans font-black uppercase leading-[0.9] tracking-tight w-full max-w-6xl mb-12 text-[#050505]"
+      <section className="min-h-[70vh] flex flex-col justify-center items-center text-center py-24 md:py-32 border-b border-[#333333] relative z-10 bg-[#111111]">
+        <h1 className="font-display font-black uppercase leading-[0.9] tracking-tight w-full max-w-6xl mb-12 text-[#FFFFFF]"
             style={{ fontSize: 'clamp(3.5rem, 8vw, 9.5rem)' }}>
           Análise de<br/>
           Funil
         </h1>
 
-        <div className="max-w-3xl px-6 text-[#444] font-mono text-xs md:text-sm tracking-widest leading-relaxed font-bold uppercase text-balance">
+        <div className="max-w-3xl px-6 text-gray-400 font-sans text-xs md:text-sm tracking-widest leading-relaxed font-bold uppercase text-balance">
           PERÍODO ADEQUADO PARA ANÁLISE: 01 MAR - 08 MAI 2026. <br/> DADOS REPRESENTAM MÉTRICAS CONSOLIDADAS DE FUNIL, EFICIÊNCIA GERAL DA OPERAÇÃO DE RECEITA (ROAS) E DISTRIBUIÇÃO E EFICIÊNCIA DE TRÁFEGO E CAPTAÇÃO.
         </div>
       </section>
 
       {/* Infinite Marquee Strip */}
-      <div className="w-full border-b-[2px] border-[#050505] py-4 overflow-hidden flex whitespace-nowrap bg-[#1B5E20] relative z-10">
-        <div className="animate-marquee font-mono text-[13px] tracking-widest text-[#F4F4F0] font-bold uppercase flex gap-12 md:gap-16">
+      <div className="w-full border-b border-[#333333] py-4 overflow-hidden flex whitespace-nowrap bg-[#E31212] relative z-10">
+        <div className="animate-marquee font-sans text-[13px] tracking-widest text-[#111111] font-bold uppercase flex gap-12 md:gap-16">
           <span>INTEGRIDADE DE DADOS: VERIFICADA</span>
           <span>MÉTRICAS DE ROAS ATIVAS</span>
           <span>TELEMETRIA DE FUNIL: ESTÁVEL</span>
@@ -236,13 +236,13 @@ function App() {
         
         {/* AIDA: Interest (Gapless Bento Grid) */}
         <section className="py-24">
-          <div className="flex items-center gap-4 mb-16 border-l-[12px] border-[#34A853] pl-6">
-            <h2 className="font-mono text-2xl font-black tracking-widest uppercase text-[#050505]">Visão Global</h2>
-            <div className="h-[2px] bg-[#050505] flex-grow mx-4"></div>
-            <span className="font-mono font-bold text-[#444] uppercase hidden md:block whitespace-nowrap">01 de Março até 08 de Maio - 2026</span>
+          <div className="flex items-center gap-4 mb-16 border-l-[8px] border-[#E31212] pl-6">
+            <h2 className="font-sans text-2xl font-black tracking-widest uppercase text-[#FFFFFF]">Visão Global</h2>
+            <div className="h-[1px] bg-[#333333] flex-grow mx-4"></div>
+            <span className="font-sans font-bold text-gray-400 uppercase hidden md:block whitespace-nowrap">01 de Março até 08 de Maio - 2026</span>
           </div>
 
-          <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 grid-flow-dense gap-[2px] bg-[#050505] border-[2px] border-[#050505] shadow-[8px_8px_0px_rgba(0,0,0,0.1)] hover:shadow-[8px_8px_0px_#050505] transition-shadow duration-500">
+          <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 grid-flow-dense gap-[2px] bg-[#000000] border border-[#333333] shadow-[8px_8px_0px_rgba(0,0,0,0.1)] hover:shadow-[8px_8px_0px_#FFFFFF] transition-shadow duration-500">
             
             <SwissCard 
               title="ROAS GERAL"
@@ -285,27 +285,27 @@ function App() {
         </section>
 
         {/* Funnel Section - Brutalist Architecture */}
-        <section className="py-24 border-t-[2px] border-[#050505]">
-           <div className="flex items-center gap-4 mb-16 border-l-[12px] border-[#34A853] pl-6">
-            <h2 className="font-mono text-2xl font-black tracking-widest uppercase text-[#050505]">Funil</h2>
-            <div className="h-[2px] bg-[#050505] flex-grow ml-4"></div>
+        <section className="py-24 border-t border-[#333333]">
+           <div className="flex items-center gap-4 mb-16 border-l-[8px] border-[#E31212] pl-6">
+            <h2 className="font-sans text-2xl font-black tracking-widest uppercase text-[#FFFFFF]">Funil</h2>
+            <div className="h-[1px] bg-[#333333] flex-grow ml-4"></div>
           </div>
 
-          <div className="w-full flex justify-between gap-[2px] bg-[#050505] border-[2px] border-[#050505] overflow-x-auto overflow-y-hidden shadow-[8px_8px_0px_#050505]">
+          <div className="w-full flex justify-between gap-[2px] bg-[#000000] border border-[#333333] overflow-x-auto overflow-y-hidden shadow-[8px_8px_0px_#FFFFFF]">
             {funnelData.map((step, idx) => (
-              <div key={step.id} className="min-w-[240px] flex-1 bg-[#F4F4F0] p-6 lg:p-8 flex flex-col relative group">
-                <div className="text-[#050505] mb-6 block lg:hidden group-hover:block transition-all">
+              <div key={step.id} className="min-w-[240px] flex-1 bg-[#111111] p-6 lg:p-8 flex flex-col relative group">
+                <div className="text-[#FFFFFF] mb-6 block lg:hidden group-hover:block transition-all">
                   <step.icon size={32} weight="bold" />
                 </div>
                 <div className="mt-auto">
-                  <div className="text-[12px] font-mono tracking-widest text-[#34A853] font-bold mb-2 uppercase">L{idx + 1}. {step.label}</div>
-                  <div className="text-4xl md:text-5xl font-sans font-black tracking-tight text-[#050505] mb-4">
+                  <div className="text-[12px] font-sans tracking-widest text-[#E31212] font-bold mb-2 uppercase">L{idx + 1}. {step.label}</div>
+                  <div className="text-4xl md:text-5xl font-display font-black tracking-tight text-[#FFFFFF] mb-4">
                     {step.value.toLocaleString()}
                   </div>
-                  <div className="bg-[#050505] text-[#F4F4F0] font-mono text-[11px] uppercase tracking-wider py-1 px-2 inline-block mb-3">
+                  <div className="bg-[#E31212] text-[#FFFFFF] font-sans text-[11px] uppercase tracking-wider py-1 px-2 inline-block mb-3">
                     {step.rate}
                   </div>
-                  <div className="text-[13px] font-mono font-bold text-[#444] uppercase">{step.subtext}</div>
+                  <div className="text-[13px] font-sans font-bold text-gray-400 uppercase">{step.subtext}</div>
                 </div>
               </div>
             ))}
@@ -313,10 +313,10 @@ function App() {
         </section>
 
         {/* AIDA: Desire (GSAP Scrolling / Text Reveal & Matrix) */}
-        <section className="py-24 md:py-32 flex flex-col items-start border-t-[2px] border-[#050505]">
+        <section className="py-24 md:py-32 flex flex-col items-start border-t border-[#333333]">
           <div className="w-full mb-16">
-             <div className="text-[14px] font-mono tracking-widest text-[#34A853] font-bold mb-8">TELEMETRIA_01</div>
-             <p ref={textRevealRef} className="font-sans font-black text-3xl md:text-5xl leading-[1.1] uppercase tracking-tight text-[#050505] max-w-5xl">
+             <div className="text-[14px] font-sans tracking-widest text-[#E31212] font-bold mb-8">TELEMETRIA_01</div>
+             <p ref={textRevealRef} className="font-display font-black text-3xl md:text-5xl leading-[1.1] uppercase tracking-tight text-[#FFFFFF] max-w-5xl">
                {'Em abril, aumentamos o investimento para atrair novos clientes, e muitos ainda estão nos conhecendo. Estamos focando em educar e filtrar esse público para aumentar suas vendas nos próximos meses.'.split(' ').map((word, i) => (
                  <span key={i} className="reveal-word inline-block mr-3 mb-2">{word}</span>
                ))}
@@ -324,9 +324,9 @@ function App() {
           </div>
           
           <div className="w-full" ref={chartWrapperRef}>
-             <div className="border-[2px] border-[#050505] bg-[#F4F4F0] p-4 lg:p-8 hover:shadow-[12px_12px_0px_#050505] transition-shadow duration-300">
-                <div className="border-b-[2px] border-[#050505] pb-6 mb-8 flex justify-between items-center">
-                  <span className="font-mono text-[16px] tracking-widest text-[#050505] font-bold uppercase">Matrizes de Evolução (Mar-Mai)</span>
+             <div className="border border-[#333333] bg-[#111111] p-4 lg:p-8 hover:shadow-[12px_12px_0px_#FFFFFF] transition-shadow duration-300">
+                <div className="border-b border-[#333333] pb-6 mb-8 flex justify-between items-center">
+                  <span className="font-sans text-[16px] tracking-widest text-[#FFFFFF] font-bold uppercase">Matrizes de Evolução (Mar-Mai)</span>
                 </div>
                 
                 {/* 3 Charts Layout */}
@@ -335,17 +335,17 @@ function App() {
                   {/* Investigment Bar Chart */}
                   <div className="flex flex-col">
                     <div className="flex items-center justify-between mb-4">
-                      <div className="font-mono text-[14px] font-bold tracking-widest text-[#050505]">INVESTIMENTO</div>
-                      <span className="w-3 h-3 bg-[#050505]"></span>
+                      <div className="font-sans text-[14px] font-bold tracking-widest text-[#FFFFFF]">INVESTIMENTO</div>
+                      <span className="w-3 h-3 bg-[#000000]"></span>
                     </div>
-                    <div className="h-[250px] w-full border-[2px] border-[#050505] p-2 bg-[#FBFBFA]">
+                    <div className="h-[250px] w-full border border-[#333333] p-2 bg-[#111111]">
                       <ResponsiveContainer width="100%" height="100%">
                         <BarChart data={monthlyData} margin={{ top: 10, right: 0, left: -10, bottom: 0 }}>
                           <CartesianGrid strokeDasharray="3 3" vertical={false} stroke="#CCC" />
-                          <XAxis dataKey="name" axisLine={{ stroke: '#050505', strokeWidth: 2 }} tickLine={false} tick={{ fill: '#050505', fontSize: 11, fontFamily: 'var(--font-mono)', fontWeight: 'bold' }} dy={10} />
-                          <YAxis axisLine={{ stroke: '#050505', strokeWidth: 2 }} tickLine={false} tickFormatter={(v) => `R$${(v/1000).toLocaleString('pt-BR')}k`} tick={{ fill: '#050505', fontSize: 11, fontFamily: 'var(--font-mono)', fontWeight: 'bold' }} />
+                          <XAxis dataKey="name" axisLine={{ stroke: '#FFFFFF', strokeWidth: 2 }} tickLine={false} tick={{ fill: '#FFFFFF', fontSize: 11, fontFamily: 'var(--font-sans)', fontWeight: 'bold' }} dy={10} />
+                          <YAxis axisLine={{ stroke: '#FFFFFF', strokeWidth: 2 }} tickLine={false} tickFormatter={(v) => `R$${(v/1000).toLocaleString('pt-BR')}k`} tick={{ fill: '#FFFFFF', fontSize: 11, fontFamily: 'var(--font-sans)', fontWeight: 'bold' }} />
                           <Tooltip content={<CustomTooltip />} cursor={{ fill: 'rgba(0,0,0,0.05)' }} />
-                          <Bar dataKey="Investimento" fill="#050505" />
+                          <Bar dataKey="Investimento" fill="#FFFFFF" />
                         </BarChart>
                       </ResponsiveContainer>
                     </div>
@@ -354,17 +354,17 @@ function App() {
                   {/* Revenue Bar Chart */}
                   <div className="flex flex-col">
                     <div className="flex items-center justify-between mb-4">
-                      <div className="font-mono text-[14px] font-bold tracking-widest text-[#050505]">RECEITA GERADA</div>
-                      <span className="w-3 h-3 bg-[#050505]"></span>
+                      <div className="font-sans text-[14px] font-bold tracking-widest text-[#FFFFFF]">RECEITA GERADA</div>
+                      <span className="w-3 h-3 bg-[#000000]"></span>
                     </div>
-                    <div className="h-[250px] w-full border-[2px] border-[#050505] p-2 bg-[#FBFBFA]">
+                    <div className="h-[250px] w-full border border-[#333333] p-2 bg-[#111111]">
                       <ResponsiveContainer width="100%" height="100%">
                         <BarChart data={monthlyData} margin={{ top: 10, right: 0, left: -20, bottom: 0 }}>
                           <CartesianGrid strokeDasharray="3 3" vertical={false} stroke="#CCC" />
-                          <XAxis dataKey="name" axisLine={{ stroke: '#050505', strokeWidth: 2 }} tickLine={false} tick={{ fill: '#050505', fontSize: 11, fontFamily: 'var(--font-mono)', fontWeight: 'bold' }} dy={10} />
-                          <YAxis axisLine={{ stroke: '#050505', strokeWidth: 2 }} tickLine={false} tickFormatter={(v) => `R$${(v/1000).toLocaleString('pt-BR')}k`} tick={{ fill: '#050505', fontSize: 11, fontFamily: 'var(--font-mono)', fontWeight: 'bold' }} />
+                          <XAxis dataKey="name" axisLine={{ stroke: '#FFFFFF', strokeWidth: 2 }} tickLine={false} tick={{ fill: '#FFFFFF', fontSize: 11, fontFamily: 'var(--font-sans)', fontWeight: 'bold' }} dy={10} />
+                          <YAxis axisLine={{ stroke: '#FFFFFF', strokeWidth: 2 }} tickLine={false} tickFormatter={(v) => `R$${(v/1000).toLocaleString('pt-BR')}k`} tick={{ fill: '#FFFFFF', fontSize: 11, fontFamily: 'var(--font-sans)', fontWeight: 'bold' }} />
                           <Tooltip content={<CustomTooltip />} cursor={{ fill: 'rgba(0,0,0,0.05)' }} />
-                          <Bar dataKey="Receita" fill="#050505" />
+                          <Bar dataKey="Receita" fill="#FFFFFF" />
                         </BarChart>
                       </ResponsiveContainer>
                     </div>
@@ -373,17 +373,17 @@ function App() {
                   {/* ROAS Line Chart */}
                   <div className="flex flex-col">
                     <div className="flex items-center justify-between mb-4">
-                      <div className="font-mono text-[14px] font-bold tracking-widest text-[#34A853]">ROAS</div>
-                      <span className="w-3 h-3 bg-[#267336]"></span>
+                      <div className="font-sans text-[14px] font-bold tracking-widest text-[#E31212]">ROAS</div>
+                      <span className="w-3 h-3 bg-[#E31212]"></span>
                     </div>
-                    <div className="h-[250px] w-full border-[2px] border-[#34A853] p-2 bg-[#E8F5E9]">
+                    <div className="h-[250px] w-full border border-[#E31212] p-2 bg-[#111111]">
                       <ResponsiveContainer width="100%" height="100%">
                         <LineChart data={monthlyData} margin={{ top: 10, right: 0, left: -20, bottom: 0 }}>
-                          <CartesianGrid strokeDasharray="3 3" vertical={false} stroke="#A5D6A7" />
-                          <XAxis dataKey="name" axisLine={{ stroke: '#34A853', strokeWidth: 2 }} tickLine={false} tick={{ fill: '#34A853', fontSize: 11, fontFamily: 'var(--font-mono)', fontWeight: 'bold' }} dy={10} />
-                          <YAxis axisLine={{ stroke: '#34A853', strokeWidth: 2 }} tickLine={false} tickFormatter={(v) => `${v}X`} tick={{ fill: '#34A853', fontSize: 11, fontFamily: 'var(--font-mono)', fontWeight: 'bold' }} />
-                          <Tooltip content={<CustomTooltip />} cursor={{ stroke: '#34A853', strokeWidth: 2, strokeDasharray: '4 4' }} />
-                          <Line type="monotone" dataKey="ROAS" stroke="#34A853" strokeWidth={4} dot={{ r: 6, fill: '#E8F5E9', stroke: '#34A853', strokeWidth: 3 }} activeDot={{ r: 8, fill: '#34A853' }} isAnimationActive={false} />
+                          <CartesianGrid strokeDasharray="3 3" vertical={false} stroke="#333333" />
+                          <XAxis dataKey="name" axisLine={{ stroke: '#E31212', strokeWidth: 2 }} tickLine={false} tick={{ fill: '#E31212', fontSize: 11, fontFamily: 'var(--font-sans)', fontWeight: 'bold' }} dy={10} />
+                          <YAxis axisLine={{ stroke: '#E31212', strokeWidth: 2 }} tickLine={false} tickFormatter={(v) => `${v}X`} tick={{ fill: '#E31212', fontSize: 11, fontFamily: 'var(--font-sans)', fontWeight: 'bold' }} />
+                          <Tooltip content={<CustomTooltip />} cursor={{ stroke: '#E31212', strokeWidth: 2, strokeDasharray: '4 4' }} />
+                          <Line type="monotone" dataKey="ROAS" stroke="#E31212" strokeWidth={4} dot={{ r: 6, fill: '#111111', stroke: '#E31212', strokeWidth: 3 }} activeDot={{ r: 8, fill: '#E31212' }} isAnimationActive={false} />
                         </LineChart>
                       </ResponsiveContainer>
                     </div>
@@ -392,35 +392,35 @@ function App() {
                 </div>
                 
                 {/* Insights section below graphs */}
-                <div className="border-t-[2px] border-[#050505] pt-8 flex flex-col lg:flex-row justify-between gap-12">
+                <div className="border-t border-[#333333] pt-8 flex flex-col lg:flex-row justify-between gap-12">
                    <div className="flex-1">
-                      <div className="text-[14px] font-mono text-[#34A853] font-bold uppercase mb-4 tracking-widest">[ DIAGNÓSTICO E INSIGHTS ]</div>
-                      <div className="text-sm md:text-base font-sans font-bold text-[#050505] leading-relaxed uppercase mb-4">
+                      <div className="text-[14px] font-sans text-[#E31212] font-bold uppercase mb-4 tracking-widest">[ DIAGNÓSTICO E INSIGHTS ]</div>
+                      <div className="text-sm md:text-base font-display font-bold text-[#FFFFFF] leading-relaxed uppercase mb-4">
                         TIVE UM GRANDE AUMENTO DE NOVOS POTENCIAIS CLIENTES EM ABRIL, O QUE É ÓTIMO. COMO SÃO PESSOAS NOVAS, ELES AINDA ESTÃO NOS CONHECENDO. POR ISSO, ESTAMOS TRABALHANDO PARA ELES ENTENDEREM MELHOR NOSSO VALOR E COMPRAREM COM MAIS FACILIDADE NOS PRÓXIMOS MESES.
                       </div>
-                      <div className="text-[13px] font-mono text-[#050505] font-bold tracking-tight uppercase px-4 py-3 bg-[#EAE8E3] border-[2px] border-[#050505]">
-                        <span className="text-[#34A853]">MAR: 2.83X</span> &gt;&gt; ABR: 1.63X &gt;&gt; MAI (01-08): 1.98X
+                      <div className="text-[13px] font-sans text-gray-400 font-bold tracking-tight uppercase px-4 py-3 bg-[#000000] border border-[#333333]">
+                        <span className="text-[#E31212]">MAR: 2.83X</span> &gt;&gt; ABR: 1.63X &gt;&gt; MAI (01-08): 1.98X
                       </div>
                    </div>
                    
-                   <div className="flex-1 border-t-[2px] border-[#050505] lg:border-t-0 lg:border-l-[2px] lg:border-[#050505] pt-8 lg:pt-0 lg:pl-10">
-                      <div className="text-[14px] font-mono text-[#34A853] font-bold uppercase mb-4 tracking-widest">[ PLANO DE AÇÃO ESTRATÉGICA ]</div>
-                      <ul className="list-none space-y-5 font-sans font-bold text-[#050505] uppercase text-xs md:text-[13px] leading-relaxed">
+                   <div className="flex-1 border-t border-[#333333] lg:border-t-0 lg:border-l lg:border-[#333333] pt-8 lg:pt-0 lg:pl-10">
+                      <div className="text-[14px] font-sans text-[#E31212] font-bold uppercase mb-4 tracking-widest">[ PLANO DE AÇÃO ESTRATÉGICA ]</div>
+                      <ul className="list-none space-y-5 font-display font-bold text-[#FFFFFF] uppercase text-xs md:text-[13px] leading-relaxed">
                         <li className="relative pl-6">
-                           <span className="absolute left-0 top-1 w-2 h-2 bg-[#050505]"></span>
-                           <span className="text-[#34A853]">MATURAÇÃO MEIO DE FUNIL (MOFU):</span> Subida de novos vídeos e criativos direcionados para audiência engajada. Precisamos aguardar a maturação das campanhas.
+                           <span className="absolute left-0 top-1 w-2 h-2 bg-[#E31212] rounded-sm"></span>
+                           <span className="text-[#E31212]">MATURAÇÃO MEIO DE FUNIL (MOFU):</span> Subida de novos vídeos e criativos direcionados para audiência engajada. Precisamos aguardar a maturação das campanhas.
                         </li>
                         <li className="relative pl-6">
-                           <span className="absolute left-0 top-1 w-2 h-2 bg-[#050505]"></span>
-                           <span className="text-[#34A853]">RETENÇÃO (REPEDIU):</span> Implementação finalizada na ferramenta Repediu atuando de forma aprofundada na retenção de clientes.
+                           <span className="absolute left-0 top-1 w-2 h-2 bg-[#E31212] rounded-sm"></span>
+                           <span className="text-[#E31212]">RETENÇÃO (REPEDIU):</span> Implementação finalizada na ferramenta Repediu atuando de forma aprofundada na retenção de clientes.
                         </li>
                         <li className="relative pl-6">
-                           <span className="absolute left-0 top-1 w-2 h-2 bg-[#050505]"></span>
-                           <span className="text-[#34A853]">RECUPERAÇÃO (CardápioWeb):</span> Implementação completa; já apresentou excelente melhoria real no faturamento do período mitigando abandono.
+                           <span className="absolute left-0 top-1 w-2 h-2 bg-[#E31212] rounded-sm"></span>
+                           <span className="text-[#E31212]">RECUPERAÇÃO (CardápioWeb):</span> Implementação completa; já apresentou excelente melhoria real no faturamento do período mitigando abandono.
                         </li>
                         <li className="relative pl-6">
-                           <span className="absolute left-0 top-1 w-2 h-2 bg-[#050505]"></span>
-                           <span className="text-[#34A853]">DATAS COMERCIAIS:</span> Mapeamento de datas racionais/sazonais para concentrar picos artificiais e programados de faturamento com novas ofertas.
+                           <span className="absolute left-0 top-1 w-2 h-2 bg-[#E31212] rounded-sm"></span>
+                           <span className="text-[#E31212]">DATAS COMERCIAIS:</span> Mapeamento de datas racionais/sazonais para concentrar picos artificiais e programados de faturamento com novas ofertas.
                         </li>
                       </ul>
                    </div>
@@ -432,12 +432,12 @@ function App() {
       </div>
       
       {/* AIDA: Action (Footer) */}
-      <footer className="w-full pb-32 px-4 md:px-8 border-t-[2px] border-[#050505] bg-[#F4F4F0] relative z-10">
+      <footer className="w-full pb-32 px-4 md:px-8 border-t border-[#333333] bg-[#111111] relative z-10">
         <div className="max-w-[1600px] mx-auto pt-32 text-center">
-            <h2 className="font-sans font-black text-6xl md:text-8xl tracking-tighter uppercase text-[#050505] mb-8">
-              Fim de <span className="text-[#34A853]">Relatório</span>
+            <h2 className="font-display font-black text-6xl md:text-8xl tracking-tighter uppercase text-[#FFFFFF] mb-8">
+              Fim de <span className="text-[#E31212]">Relatório</span>
             </h2>
-            <div className="w-32 h-[4px] bg-[#050505] mx-auto mt-12"></div>
+            <div className="w-32 h-[2px] bg-[#E31212] mx-auto mt-12"></div>
         </div>
       </footer>
       

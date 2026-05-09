@@ -1,9 +1,15 @@
-@import url('https://fonts.googleapis.com/css2?family=Inter:wght@400;700;900&family=JetBrains+Mono:wght@400;700&display=swap');
+@import url('https://fonts.googleapis.com/css2?family=Montserrat:wght@400;600;800&family=Roboto:wght@400;500;700&display=swap');
 @import "tailwindcss";
 
 @theme {
-  --font-sans: "Inter", ui-sans-serif, system-ui, sans-serif;
-  --font-mono: "JetBrains Mono", ui-monospace, SFMono-Regular, monospace;
+  --font-display: "Montserrat", sans-serif;
+  --font-sans: "Roboto", sans-serif;
+  
+  --color-v4-red: #E31212;
+  --color-v4-black: #000000;
+  --color-v4-dark: #111111;
+  --color-v4-gray: #333333;
+  --color-v4-white: #FFFFFF;
 }
 
 @layer utilities {
@@ -13,9 +19,9 @@
 }
 
 body {
-  background-color: #F4F4F0;
-  color: #050505;
-  font-family: var(--font-mono);
+  background-color: var(--color-v4-black);
+  color: var(--color-v4-white);
+  font-family: var(--font-sans);
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
   margin: 0;
@@ -24,8 +30,8 @@ body {
 }
 
 ::selection {
-  background: #34A853;
-  color: #F4F4F0;
+  background: var(--color-v4-red);
+  color: var(--color-v4-white);
 }
 
 /* Mechanical noise SVG - keeping it subtle for texture */
